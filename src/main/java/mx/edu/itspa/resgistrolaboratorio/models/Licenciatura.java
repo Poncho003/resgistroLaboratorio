@@ -20,19 +20,22 @@ import mx.edu.itspa.resgistrolaboratorio.commons.Views;
 public class Licenciatura {
 
     // Identificador unico de la licenciatura generado automaticamente
+    // Visible en la vista publica del API
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(Views.Public.class)
     private Long id;
 
-    // Atributos principales de la licenciatura
+    // Nombre de la licenciatura mostrado en la vista publica
     @JsonView(Views.Public.class)
     private String nombre;
+
+    // Especialidad de la licenciatura incluida tambien en la vista publica
     @JsonView(Views.Public.class)
     private String especialidad;
 
     // Relacion uno a muchos con cursos
-    // Una licenciatura puede tener varios cursos asociados
+    // Esta informacion solo se muestra en la vista privada del API
     @JsonView(Views.Private.class)
     @OneToMany(mappedBy = "licenciatura")
     private Set<Curso> cursos;

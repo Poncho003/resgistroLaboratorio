@@ -1,6 +1,6 @@
 // Clase principal del proyecto Spring Boot RegistroLaboratorio
 // Es el punto de entrada de la aplicacion y se encarga de inicializar el contexto de Spring
-// La anotacion SpringBootApplication habilita el escaneo de componentes, configuraciones y beans o frijolitos
+// La anotacion SpringBootApplication habilita el escaneo de componentes, configuraciones y beans (frijolitos)
 package mx.edu.itspa.resgistrolaboratorio;
 
 import org.springframework.boot.SpringApplication;

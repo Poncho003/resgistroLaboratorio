@@ -1,7 +1,6 @@
 // Entidad que representa los cursos dentro del sistema
 // Se usa para mapear la tabla 'cursos' en la base de datos mediante JPA
 // Contiene relaciones con estudiantes y licenciaturas
-
 package mx.edu.itspa.resgistrolaboratorio.models;
 
 import java.util.HashSet;
@@ -24,41 +23,45 @@ import mx.edu.itspa.resgistrolaboratorio.commons.Views;
 @Table(name = "cursos")
 public class Curso {
 
-    // Identificador único del curso generado automáticamente
+    // Identificador unico del curso generado automáticamente
+    // Se muestra en la vista publica del API
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(Views.Public.class)
     private Long id;
 
-    // Nombre del curso (no puede ser nulo, longitud máxima 100)
+    // Nombre del curso este no puede ser nulo, longitud máxima 100
+    // Visible en la vista publica
     @Column(name = "nombre", nullable = false, length = 100)
     @JsonView(Views.Public.class)
     private String nombre;
 
-    // Créditos académicos del curso
+    // Creditos académicos del curso
+    // Incluido en la vista publica
     @Column(name = "creditos", nullable = false)
     @JsonView(Views.Public.class)
     private Integer creditos;
 
-    // Número de unidades o temas del curso
+    // Numero de unidades o temas del curso
+    // Incluido en la vista publica
     @Column(name = "unidades", nullable = false)
     @JsonView(Views.Public.class)
     private Integer unidades;
 
-    // Relación muchos a uno con licenciatura
-    // Cada curso pertenece a una licenciatura
+    // Relacion muchos a uno con licenciatura
+    // Cada curso pertenece a una licenciatura y se muestra en la vista publica
     @JsonView(Views.Public.class)
     @ManyToOne
     @JoinColumn(name = "licenciatura_id", nullable = true)
     private Licenciatura licenciatura;
 
-    // Relación muchos a muchos con estudiantes
-    // Un curso puede tener varios estudiantes y un estudiante varios cursos
+    // Relacion muchos a muchos con estudiantes
+    // Esta informacion solo se expone en la vista privada
     @JsonView(Views.Private.class)
     @ManyToMany(mappedBy = "cursos")
     private Set<Estudiante> estudiantes = new HashSet<>();
 
-    // Constructor vacío requerido por JPA
+    // Constructor vacio requerido por JPA
     public Curso() {
     }
 
