@@ -1,0 +1,61 @@
+<footer th:fragment="footer1" class="footer bg-white py-4 border-top">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1 0 auto;
+        }
+
+        .footer {
+            flex-shrink: 0;
+            background-color: #ffffff;
+            border-top: 1px solid #dee2e6;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .footer .text-secondary {
+            color: #6c757d !important;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #6c757d;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #0d6efd;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 1.2rem 0;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                <p class="text-secondary mb-0">
+                    &copy; 2023 RegistroLab. Todos los derechos reservados.
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="#" class="me-3">Política de Privacidad</a>
+                <a href="#">Términos de Servicio</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
