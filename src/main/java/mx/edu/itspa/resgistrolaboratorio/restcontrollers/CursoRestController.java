@@ -1,13 +1,15 @@
 // Controlador REST encargado de manejar las peticiones relacionadas con los cursos
 // Expone endpoints para obtener, registrar y actualizar cursos mediante operaciones HTTP
 // Se comunica con los servicios de Curso y Licenciatura para gestionar la logica de negocio
-
 package mx.edu.itspa.resgistrolaboratorio.restcontrollers;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +26,12 @@ import mx.edu.itspa.resgistrolaboratorio.models.Licenciatura;
 import mx.edu.itspa.resgistrolaboratorio.services.ICursoService;
 import mx.edu.itspa.resgistrolaboratorio.services.ILicenciaturaService;
 
-@CrossOrigin(methods = {RequestMethod.PUT})
+@CrossOrigin(methods = { RequestMethod.PUT, RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
 @RestController
 public class CursoRestController {
 
-    // Inyeccion de dependencias para acceder a los servicios de cursos y licenciaturas
+    // Inyeccion de dependencias para acceder a los servicios de cursos y
+    // licenciaturas
     @Autowired
     private ICursoService cursoService;
 
@@ -70,4 +73,20 @@ public class CursoRestController {
         curso.setLicenciatura(licenciatura);
         return cursoService.actualizar(curso);
     }
+
+    // Endpoint para eliminar un curso por su identificador
+    // Retorna un mensaje de confirmacion tras la eliminacion
+    // Se maneja asi para no dañar el codigo existe solo se agregarn las validaciones de excepciones
+    @DeleteMapping("/api/cursos/eliminar/{id}")
+    public ResponseEntity<String> eliminarCurso(@PathVariable Long id) {
+        try {
+            cursoService.eliminar(id);
+            return ResponseEntity.ok("Curso eliminado correctamente");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor: " + e.getMessage());
+        }
+    }
+
 }

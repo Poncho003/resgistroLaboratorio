@@ -43,8 +43,12 @@ public class CursoService implements ICursoService {
     }
 
     // Elimina un curso segun su identificador
+    // Lanza una excepcion si el curso no existe en forma de proteccion
     @Override
     public void eliminar(Long id) {
+        if (!cursoRepository.existsById(id)) {
+            throw new IllegalArgumentException("Curso con ID " + id + " no encontrado");
+        }
         cursoRepository.deleteById(id);
     }
 }
